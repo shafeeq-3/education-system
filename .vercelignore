@@ -1,0 +1,7 @@
+backend/server.js
+frontend/
+.env
+.env.local
+*.log
+node_modules/
+.git/

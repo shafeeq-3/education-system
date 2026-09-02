@@ -6,8 +6,8 @@
     "node": ">=18.x"
   },
   "scripts": {
-    "start": "node index.js",
-    "vercel-build": "echo 'Build complete'"
+    "start": "node backend/server.js",
+    "dev": "node backend/server.js"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",

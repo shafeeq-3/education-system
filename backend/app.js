@@ -1,30 +1,24 @@
 import express from 'express';
 import cors from 'cors';
-import dotenv from 'dotenv';
-import connectDB from './backend/config/database.js';
-import { errorHandler, notFound } from './backend/middlewares/errorHandler.js';
-import { requestLogger, securityHeaders, requestId } from './backend/middlewares/logger.js';
-import authRoutes from './backend/routes/authRoutes.js';
-import userRoutes from './backend/routes/userRoutes.js';
-import academicRoutes from './backend/routes/academicRoutes.js';
-import classRoutes from './backend/routes/classRoutes.js';
-import assignmentRoutes from './backend/routes/assignmentRoutes.js';
-import marksheetRoutes from './backend/routes/marksheetRoutes.js';
-import dashboardRoutes from './backend/routes/dashboardRoutes.js';
-import financeRoutes from './backend/routes/financeRoutes.js';
-import notificationRoutes from './backend/routes/notificationRoutes.js';
-import analyticsRoutes from './backend/routes/analyticsRoutes.js';
-
-dotenv.config({ path: './backend/.env' });
-
-// Connect to database
-connectDB();
+import config from './config/env.js';
+import { errorHandler, notFound } from './middlewares/errorHandler.js';
+import { requestLogger, securityHeaders, requestId } from './middlewares/logger.js';
+import authRoutes from './routes/authRoutes.js';
+import userRoutes from './routes/userRoutes.js';
+import academicRoutes from './routes/academicRoutes.js';
+import classRoutes from './routes/classRoutes.js';
+import assignmentRoutes from './routes/assignmentRoutes.js';
+import marksheetRoutes from './routes/marksheetRoutes.js';
+import dashboardRoutes from './routes/dashboardRoutes.js';
+import financeRoutes from './routes/financeRoutes.js';
+import notificationRoutes from './routes/notificationRoutes.js';
+import analyticsRoutes from './routes/analyticsRoutes.js';
 
 const app = express();
 
 // CORS configuration
 app.use(cors({
-  origin: process.env.FRONTEND_URL || '*',
+  origin: config.frontendUrl || '*',
   credentials: true,
 }));
 
@@ -43,7 +37,8 @@ app.get('/', (req, res) => {
     success: true,
     message: 'Education System API is running',
     version: '1.0.0',
-    timestamp: new Date().toISOString()
+    timestamp: new Date().toISOString(),
+    environment: config.nodeEnv
   });
 });
 
@@ -52,7 +47,8 @@ app.get('/health', (req, res) => {
   res.json({
     success: true,
     message: 'Server is healthy',
-    timestamp: new Date().toISOString()
+    timestamp: new Date().toISOString(),
+    environment: config.nodeEnv
   });
 });
 

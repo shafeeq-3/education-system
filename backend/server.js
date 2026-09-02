@@ -1,51 +1,36 @@
-import express from 'express';
-import cors from 'cors';
+/**
+ * Local Development Server with Socket.IO Support
+ * 
+ * NOTE: This file is used ONLY for local development.
+ * For Vercel deployment, see api/index.js
+ * 
+ * SOCKET.IO LIMITATION ON VERCEL:
+ * Socket.IO requires a persistent WebSocket connection, which is NOT supported
+ * by Vercel Serverless Functions. For production Socket.IO, you need:
+ * - Separate WebSocket server (Railway, Render, DigitalOcean, AWS EC2, etc.)
+ * - Or use a managed service like Pusher, Ably, or Socket.IO's managed platform
+ * 
+ * The REST API will work fine on Vercel, but real-time features need alternative hosting.
+ */
+
 import { createServer } from 'http';
 import { Server } from 'socket.io';
 import config from './config/env.js';
 import connectDB from './config/database.js';
-import { errorHandler, notFound } from './middlewares/errorHandler.js';
-import { requestLogger, securityHeaders, requestId } from './middlewares/logger.js';
-import authRoutes from './routes/authRoutes.js';
-import userRoutes from './routes/userRoutes.js';
-import academicRoutes from './routes/academicRoutes.js';
-import classRoutes from './routes/classRoutes.js';
-// enrollmentRoutes removed - using classRoutes for enrollments
-import assignmentRoutes from './routes/assignmentRoutes.js';
-import marksheetRoutes from './routes/marksheetRoutes.js';
-import dashboardRoutes from './routes/dashboardRoutes.js';
-import financeRoutes from './routes/financeRoutes.js';
-import notificationRoutes from './routes/notificationRoutes.js';
-import analyticsRoutes from './routes/analyticsRoutes.js';
+import app from './app.js';
 
 // Connect to database
 connectDB();
 
-const app = express();
 const httpServer = createServer(app);
 
-// Socket.io setup
+// Socket.io setup (LOCAL DEVELOPMENT ONLY)
 const io = new Server(httpServer, {
   cors: {
     origin: config.frontendUrl,
     credentials: true,
   },
 });
-
-// CORS configuration
-app.use(cors({
-  origin: config.frontendUrl,
-  credentials: true,
-}));
-
-// Body parsers
-app.use(express.json({ limit: '10mb' }));
-app.use(express.urlencoded({ extended: true, limit: '10mb' }));
-
-// Security and logging middlewares
-app.use(securityHeaders);
-app.use(requestId);
-app.use(requestLogger);
 
 // Socket.io connection handling
 io.on('connection', (socket) => {
@@ -61,38 +46,10 @@ io.on('connection', (socket) => {
   });
 });
 
-// Make io accessible in routes
+// Make io accessible in routes (for local development)
 app.set('io', io);
 
-// Health check endpoint
-app.get('/health', (req, res) => {
-  res.json({
-    success: true,
-    message: 'Server is running',
-    timestamp: new Date().toISOString(),
-    environment: config.nodeEnv
-  });
-});
-
-// API Routes - v1
-app.use('/api/v1/auth', authRoutes);
-app.use('/api/v1', academicRoutes); // Move before userRoutes to ensure public routes work
-app.use('/api/v1', userRoutes);
-app.use('/api/v1', classRoutes); // Includes classes, timetables, and enrollments
-app.use('/api/v1', assignmentRoutes);
-app.use('/api/v1', marksheetRoutes);
-app.use('/api/v1', dashboardRoutes);
-app.use('/api/v1', financeRoutes);
-app.use('/api/v1', notificationRoutes);
-app.use('/api/v1', analyticsRoutes);
-
-// 404 handler
-app.use(notFound);
-
-// Global error handler
-app.use(errorHandler);
-
-// Start server
+// Start server (LOCAL DEVELOPMENT ONLY)
 const PORT = config.port;
 
 httpServer.listen(PORT, () => {
@@ -117,6 +74,6 @@ process.on('uncaughtException', (err) => {
   process.exit(1);
 });
 
-// Export app for Vercel
-export default app;
+// Export for testing purposes
 export { io };
+export default app;
