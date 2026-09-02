@@ -117,4 +117,6 @@ process.on('uncaughtException', (err) => {
   process.exit(1);
 });
 
+// Export app for Vercel
+export default app;
 export { io };

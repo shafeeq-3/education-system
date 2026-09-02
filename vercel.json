@@ -1,16 +1,15 @@
 {
   "version": 2,
-  "name": "education-system-backend",
   "builds": [
     {
-      "src": "backend/server.js",
+      "src": "api/index.js",
       "use": "@vercel/node"
     }
   ],
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "backend/server.js"
+      "dest": "api/index.js"
     }
   ]
 }
