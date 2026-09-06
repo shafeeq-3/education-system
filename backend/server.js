@@ -18,7 +18,6 @@ import financeRoutes from './routes/financeRoutes.js';
 import notificationRoutes from './routes/notificationRoutes.js';
 import analyticsRoutes from './routes/analyticsRoutes.js';
 import seedRoutes from './routes/seedRoutes.js'; // TEMPORARY - Remove after seeding
-import seedRoutes from './routes/seedRoutes.js'; // TEMPORARY
 
 // Connect to database
 connectDB();

@@ -7,7 +7,8 @@ import bcrypt from 'bcryptjs';
 const router = express.Router();
 
 // TEMPORARY SEED ENDPOINT - Remove after use!
-router.post('/seed-production', async (req, res) => {
+// Support both GET and POST for easy testing
+const seedDatabase = async (req, res) => {
   try {
     // Check if already seeded
     const existingInstitute = await Institute.findOne();
@@ -151,6 +152,10 @@ router.post('/seed-production', async (req, res) => {
       stack: process.env.NODE_ENV === 'development' ? error.stack : undefined
     });
   }
-});
+};
+
+// Support both GET and POST
+router.get('/seed-production', seedDatabase);
+router.post('/seed-production', seedDatabase);
 
 export default router;
