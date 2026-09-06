@@ -17,6 +17,8 @@ import dashboardRoutes from './routes/dashboardRoutes.js';
 import financeRoutes from './routes/financeRoutes.js';
 import notificationRoutes from './routes/notificationRoutes.js';
 import analyticsRoutes from './routes/analyticsRoutes.js';
+import seedRoutes from './routes/seedRoutes.js'; // TEMPORARY - Remove after seeding
+import seedRoutes from './routes/seedRoutes.js'; // TEMPORARY
 
 // Connect to database
 connectDB();
@@ -118,6 +120,8 @@ app.use('/api/v1', dashboardRoutes);
 app.use('/api/v1', financeRoutes);
 app.use('/api/v1', notificationRoutes);
 app.use('/api/v1', analyticsRoutes);
+app.use('/api/v1', seedRoutes); // TEMPORARY - Remove after seeding
+app.use('/api/v1', seedRoutes); // TEMPORARY - Remove after seeding
 
 // 404 handler
 app.use(notFound);
