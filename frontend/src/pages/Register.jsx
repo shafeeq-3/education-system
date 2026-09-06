@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { Eye, EyeOff, Mail, Lock, User, Phone, Calendar, MapPin, AlertCircle, CheckCircle2, Loader2 } from 'lucide-react';
 import axios from '../lib/axios';
+import config from '../config/api';
 import { useToast } from '../hooks/useToast';
 import { ToastContainer } from '../components/ui/Toast';
 
@@ -37,7 +38,7 @@ export default function Register() {
 
   const fetchCampuses = async () => {
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5000/api/v1'}/campuses`);
+      const response = await fetch(`${config.apiUrl}/campuses`);
       if (!response.ok) throw new Error('Failed to fetch');
       const data = await response.json();
       setCampuses(data.data.items || []);
