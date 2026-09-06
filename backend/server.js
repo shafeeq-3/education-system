@@ -81,6 +81,21 @@ io.on('connection', (socket) => {
 // Make io accessible in routes
 app.set('io', io);
 
+// Root endpoint - Welcome message
+app.get('/', (req, res) => {
+  res.json({
+    success: true,
+    message: 'Education Management System API',
+    version: '1.0.0',
+    endpoints: {
+      health: '/health',
+      api: '/api/v1',
+      docs: 'https://github.com/shafeeq-3/education-system'
+    },
+    timestamp: new Date().toISOString()
+  });
+});
+
 // Health check endpoint
 app.get('/health', (req, res) => {
   res.json({
