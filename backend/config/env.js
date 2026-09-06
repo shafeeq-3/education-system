@@ -20,7 +20,10 @@ const missingEnvVars = requiredEnvVars.filter(envVar => !process.env[envVar]);
 
 if (missingEnvVars.length > 0) {
   console.error(`Missing required environment variables: ${missingEnvVars.join(', ')}`);
-  process.exit(1);
+  // Don't exit on Vercel, it will handle the error
+  if (process.env.VERCEL !== '1') {
+    process.exit(1);
+  }
 }
 
 export default {
