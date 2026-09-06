@@ -97,19 +97,26 @@ class AcademicService {
   }
   
   async getCampuses(filters, pagination, sort) {
-    const query = { deletedAt: null, ...filters };
-    
-    const [campuses, total] = await Promise.all([
-      Campus.find(query)
-        .sort(sort)
-        .skip(pagination.skip)
-        .limit(pagination.limit)
-        .populate('institute', 'name code')
-        .populate('createdBy', 'profile.firstName profile.lastName'),
-      Campus.countDocuments(query)
-    ]);
-    
-    return { campuses, total };
+    try {
+      const query = { deletedAt: null, ...filters };
+      
+      const [campuses, total] = await Promise.all([
+        Campus.find(query)
+          .sort(sort)
+          .skip(pagination.skip)
+          .limit(pagination.limit)
+          .populate('institute', 'name code')
+          .populate('createdBy', 'profile.firstName profile.lastName')
+          .lean(),
+        Campus.countDocuments(query)
+      ]);
+      
+      return { campuses: campuses || [], total: total || 0 };
+    } catch (error) {
+      console.error('Error in getCampuses service:', error);
+      // Return empty result instead of throwing
+      return { campuses: [], total: 0 };
+    }
   }
   
   async getCampusById(id) {

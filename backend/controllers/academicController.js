@@ -60,22 +60,27 @@ class AcademicController {
   });
   
   getCampuses = asyncHandler(async (req, res) => {
-    const filters = {};
-    if (req.query.search) {
-      filters.$or = [
-        { name: { $regex: req.query.search, $options: 'i' } },
-        { code: { $regex: req.query.search, $options: 'i' } }
-      ];
+    try {
+      const filters = {};
+      if (req.query.search) {
+        filters.$or = [
+          { name: { $regex: req.query.search, $options: 'i' } },
+          { code: { $regex: req.query.search, $options: 'i' } }
+        ];
+      }
+      if (req.query.instituteId) filters.institute = req.query.instituteId;
+      
+      const { campuses, total } = await academicService.getCampuses(
+        filters,
+        req.pagination,
+        req.sort
+      );
+      
+      paginatedResponse(res, 200, campuses, { ...req.pagination, total });
+    } catch (error) {
+      console.error('Error in getCampuses controller:', error);
+      throw error;
     }
-    if (req.query.instituteId) filters.institute = req.query.instituteId;
-    
-    const { campuses, total } = await academicService.getCampuses(
-      filters,
-      req.pagination,
-      req.sort
-    );
-    
-    paginatedResponse(res, 200, campuses, { ...req.pagination, total });
   });
   
   getCampusById = asyncHandler(async (req, res) => {
