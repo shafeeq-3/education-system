@@ -109,6 +109,9 @@ app.get('/health', (req, res) => {
 });
 
 // API Routes - v1
+// SEED ROUTE FIRST - Must be before auth middleware
+app.use('/api/v1', seedRoutes); // TEMPORARY - Remove after seeding - NO AUTH!
+
 app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1', academicRoutes); // Move before userRoutes to ensure public routes work
 app.use('/api/v1', userRoutes);
@@ -119,8 +122,6 @@ app.use('/api/v1', dashboardRoutes);
 app.use('/api/v1', financeRoutes);
 app.use('/api/v1', notificationRoutes);
 app.use('/api/v1', analyticsRoutes);
-app.use('/api/v1', seedRoutes); // TEMPORARY - Remove after seeding
-app.use('/api/v1', seedRoutes); // TEMPORARY - Remove after seeding
 
 // 404 handler
 app.use(notFound);
