@@ -27,7 +27,7 @@ const httpServer = createServer(app);
 // Socket.io setup
 const io = new Server(httpServer, {
   cors: {
-    origin: config.frontendUrl,
+    origin: ['https://education-system-hw2l.vercel.app', config.frontendUrl, 'http://localhost:5173'],
     credentials: true,
   },
 });
@@ -35,6 +35,7 @@ const io = new Server(httpServer, {
 // CORS configuration
 const allowedOrigins = [
   config.frontendUrl,
+  'https://education-system-hw2l.vercel.app', // Production frontend
   'http://localhost:5173',
   'http://localhost:3000'
 ];
