@@ -199,6 +199,26 @@ export default function Login() {
               </Link>
             </p>
           </div>
+
+          {/* Test Credentials */}
+          <div className="mt-6 pt-6 border-t border-gray-200">
+            <p className="text-xs font-semibold text-gray-700 mb-3 text-center">🧪 Test Credentials (Demo Only)</p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div className="bg-gradient-to-br from-purple-50 to-purple-100 rounded-lg p-3 border border-purple-200">
+                <p className="text-xs font-semibold text-purple-900 mb-2">👨‍🏫 Teacher</p>
+                <p className="text-xs text-purple-800 font-mono">john.smith@example.com</p>
+                <p className="text-xs text-purple-800 font-mono">teacher123</p>
+              </div>
+              <div className="bg-gradient-to-br from-teal-50 to-teal-100 rounded-lg p-3 border border-teal-200">
+                <p className="text-xs font-semibold text-teal-900 mb-2">👨‍🎓 Student</p>
+                <p className="text-xs text-teal-800 font-mono">alice.johnson@example.com</p>
+                <p className="text-xs text-teal-800 font-mono">student123</p>
+              </div>
+            </div>
+            <p className="text-xs text-gray-500 mt-2 text-center">
+              Note: Run seed endpoint first if these don't work
+            </p>
+          </div>
         </div>
 
         {/* Footer */}
