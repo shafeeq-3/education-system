@@ -215,9 +215,6 @@ export default function Login() {
                 <p className="text-xs text-teal-800 font-mono">student123</p>
               </div>
             </div>
-            <p className="text-xs text-gray-500 mt-2 text-center">
-              Note: Run seed endpoint first if these don't work
-            </p>
           </div>
         </div>
 
