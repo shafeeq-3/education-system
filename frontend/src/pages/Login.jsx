@@ -108,7 +108,7 @@ export default function Login() {
                   className={`block w-full pl-10 pr-3 py-3 border ${
                     fieldErrors.emailOrUsername ? 'border-red-300 focus:ring-red-500 focus:border-red-500' : 'border-gray-300 focus:ring-purple-500 focus:border-purple-500'
                   } rounded-xl text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 transition-colors`}
-                  placeholder="admin@uot.edu or admin"
+                  placeholder="Enter email or username"
                 />
               </div>
               {fieldErrors.emailOrUsername && (
@@ -202,17 +202,17 @@ export default function Login() {
 
           {/* Test Credentials */}
           <div className="mt-6 pt-6 border-t border-gray-200">
-            <p className="text-xs font-semibold text-gray-700 mb-3 text-center">🧪 Test Credentials (Demo Only)</p>
+            <p className="text-xs font-semibold text-gray-700 mb-3 text-center">🧪 Test Credentials</p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div className="bg-gradient-to-br from-purple-50 to-purple-100 rounded-lg p-3 border border-purple-200">
                 <p className="text-xs font-semibold text-purple-900 mb-2">👨‍🏫 Teacher</p>
-                <p className="text-xs text-purple-800 font-mono">john.smith@example.com</p>
-                <p className="text-xs text-purple-800 font-mono">teacher123</p>
+                <p className="text-xs text-purple-800 font-mono">john.doe@uot.edu</p>
+                <p className="text-xs text-purple-800 font-mono">Password@123</p>
               </div>
               <div className="bg-gradient-to-br from-teal-50 to-teal-100 rounded-lg p-3 border border-teal-200">
                 <p className="text-xs font-semibold text-teal-900 mb-2">👨‍🎓 Student</p>
-                <p className="text-xs text-teal-800 font-mono">alice.johnson@example.com</p>
-                <p className="text-xs text-teal-800 font-mono">student123</p>
+                <p className="text-xs text-teal-800 font-mono">alice.johnson@student.uot.edu</p>
+                <p className="text-xs text-teal-800 font-mono">Password@123</p>
               </div>
             </div>
           </div>
