@@ -65,6 +65,104 @@ export default function StudentDashboard() {
   const upcomingDeadlines = dashboard?.upcomingDeadlines || [];
   const ineligibilityAlerts = dashboard?.ineligibilityAlerts || [];
 
+  // Check if student has no enrollments (new account)
+  const isNewStudent = enrollments.length === 0 && !loading;
+
+  // Empty State for New Students
+  if (isNewStudent) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-teal-50 p-3 sm:p-4 md:p-6 lg:p-8">
+        <ToastContainer toasts={toasts} removeToast={removeToast} />
+        
+        <div className="max-w-4xl mx-auto">
+          {/* Welcome Header */}
+          <div className="text-center mb-8 animate-fade-in">
+            <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-primary rounded-full mb-4">
+              <BookOpen className="h-10 w-10 text-white" />
+            </div>
+            <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-3">
+              Welcome to Your Student Dashboard! 🎓
+            </h1>
+            <p className="text-gray-600 text-lg">
+              Your academic journey starts here. Let's get you set up!
+            </p>
+          </div>
+
+          {/* Empty State Card */}
+          <div className="bg-white rounded-2xl shadow-xl p-8 mb-6 animate-scale-in">
+            <div className="text-center mb-8">
+              <div className="inline-flex items-center justify-center w-16 h-16 bg-purple-100 rounded-full mb-4">
+                <AlertTriangle className="h-8 w-8 text-purple-600" />
+              </div>
+              <h2 className="text-2xl font-bold text-gray-900 mb-2">No Enrollments Yet</h2>
+              <p className="text-gray-600 max-w-2xl mx-auto">
+                You haven't enrolled in any courses yet. To get started with your academic journey, you need to:
+              </p>
+            </div>
+
+            {/* Steps */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+              <div className="bg-gradient-to-br from-purple-50 to-purple-100 rounded-xl p-6 text-center">
+                <div className="w-12 h-12 bg-purple-600 text-white rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold">
+                  1
+                </div>
+                <h3 className="font-bold text-gray-900 mb-2">Select Your Program</h3>
+                <p className="text-sm text-gray-600">Choose your degree program (e.g., BS Computer Science)</p>
+              </div>
+
+              <div className="bg-gradient-to-br from-teal-50 to-teal-100 rounded-xl p-6 text-center">
+                <div className="w-12 h-12 bg-teal-600 text-white rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold">
+                  2
+                </div>
+                <h3 className="font-bold text-gray-900 mb-2">Enroll in Semester</h3>
+                <p className="text-sm text-gray-600">Get enrolled in the current active semester</p>
+              </div>
+
+              <div className="bg-gradient-to-br from-green-50 to-green-100 rounded-xl p-6 text-center">
+                <div className="w-12 h-12 bg-green-600 text-white rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold">
+                  3
+                </div>
+                <h3 className="font-bold text-gray-900 mb-2">Start Learning</h3>
+                <p className="text-sm text-gray-600">Access courses, assignments, and track attendance</p>
+              </div>
+            </div>
+
+            {/* CTA Button */}
+            <div className="text-center">
+              <Link
+                to="/student/onboarding"
+                className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-primary text-white rounded-xl font-semibold text-lg hover:shadow-xl transition-all transform hover:scale-105"
+              >
+                <BookOpen className="h-6 w-6" />
+                Set Up My Profile Now
+                <ChevronRight className="h-6 w-6" />
+              </Link>
+            </div>
+          </div>
+
+          {/* Help Card */}
+          <div className="bg-gradient-to-r from-blue-50 to-purple-50 border border-blue-200 rounded-xl p-6">
+            <div className="flex items-start gap-4">
+              <div className="p-3 bg-blue-100 rounded-lg">
+                <Bell className="h-6 w-6 text-blue-600" />
+              </div>
+              <div>
+                <h3 className="font-semibold text-gray-900 mb-2">Need Help?</h3>
+                <p className="text-sm text-gray-600 mb-3">
+                  If you're unsure about which program or semester to select, please contact your academic advisor or visit the admin office.
+                </p>
+                <button className="text-sm font-medium text-purple-600 hover:text-purple-700 flex items-center gap-1">
+                  Contact Support
+                  <ChevronRight className="h-4 w-4" />
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-teal-50 p-3 sm:p-4 md:p-6 lg:p-8">
       <ToastContainer toasts={toasts} removeToast={removeToast} />

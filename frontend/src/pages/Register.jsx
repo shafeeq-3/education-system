@@ -121,7 +121,7 @@ export default function Register() {
           </div>
           <h2 className="text-2xl font-bold text-gray-900 mb-3">Registration Successful!</h2>
           <p className="text-gray-600 mb-6">
-            Your account has been created and is pending admin approval. You will receive an email once your account is approved.
+            Your account has been created successfully. You can now login and start your academic journey!
           </p>
           <button
             onClick={() => navigate('/login')}

@@ -42,6 +42,7 @@ import StudentResults from './pages/student/Results';
 import StudentFees from './pages/student/Fees';
 import StudentTimetable from './pages/student/Timetable';
 import EnrollmentRequest from './pages/student/EnrollmentRequest';
+import OnboardingSetup from './pages/student/OnboardingSetup';
 
 // Shared Pages
 import Notifications from './pages/shared/Notifications';
@@ -489,6 +490,12 @@ function App() {
           } />
 
           {/* Student Routes */}
+          <Route path="/student/onboarding" element={
+            <ProtectedRoute allowedRoles={['student']}>
+              <OnboardingSetup />
+            </ProtectedRoute>
+          } />
+
           <Route path="/student/courses" element={
             <ProtectedRoute allowedRoles={['student']}>
               <DashboardLayout>

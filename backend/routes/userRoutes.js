@@ -8,6 +8,69 @@ const router = express.Router();
 // Apply authentication to all routes
 router.use(authenticate);
 
+// Get current user's profile
+router.get('/users/me', async (req, res, next) => {
+  try {
+    const user = await User.findById(req.userId)
+      .select('-password')
+      .populate('campus', 'name code')
+      .populate('department', 'name code')
+      .populate('program', 'name code duration degreeLevel');
+
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        error: { message: 'User not found' }
+      });
+    }
+
+    res.json({
+      success: true,
+      data: user
+    });
+  } catch (error) {
+    next(error);
+  }
+});
+
+// Update current user's profile
+router.patch('/users/me', async (req, res, next) => {
+  try {
+    const { email, profile, program, department } = req.body;
+
+    const updateData = {};
+    if (email) updateData.email = email;
+    if (profile) updateData.profile = { ...profile };
+    if (program) updateData.program = program;
+    if (department) updateData.department = department;
+
+    const user = await User.findByIdAndUpdate(
+      req.userId,
+      updateData,
+      { new: true, runValidators: true }
+    )
+      .select('-password')
+      .populate('campus', 'name code')
+      .populate('department', 'name code')
+      .populate('program', 'name code duration degreeLevel');
+
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        error: { message: 'User not found' }
+      });
+    }
+
+    res.json({
+      success: true,
+      message: 'Profile updated successfully',
+      data: user
+    });
+  } catch (error) {
+    next(error);
+  }
+});
+
 // Get all users (Admin/SuperAdmin only)
 router.get('/users', authorize('superadmin', 'admin'), validatePagination, async (req, res, next) => {
   try {

@@ -48,6 +48,103 @@ export default function TeacherDashboard() {
   const attendanceAlerts = dashboard?.attendanceAlerts || [];
   const eligibilityAlerts = dashboard?.eligibilityAlerts || [];
 
+  // Check if teacher has no classes assigned (new account)
+  const isNewTeacher = assignedClasses.length === 0 && !loading;
+
+  // Empty State for New Teachers
+  if (isNewTeacher) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-teal-50 p-3 sm:p-4 md:p-6 lg:p-8">
+        <ToastContainer toasts={toasts} removeToast={removeToast} />
+        
+        <div className="max-w-4xl mx-auto">
+          {/* Welcome Header */}
+          <div className="text-center mb-8 animate-fade-in">
+            <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-primary rounded-full mb-4">
+              <BookOpen className="h-10 w-10 text-white" />
+            </div>
+            <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-3">
+              Welcome to Your Teacher Dashboard! 👨‍🏫
+            </h1>
+            <p className="text-gray-600 text-lg">
+              Your teaching journey starts here
+            </p>
+          </div>
+
+          {/* Empty State Card */}
+          <div className="bg-white rounded-2xl shadow-xl p-8 mb-6 animate-scale-in">
+            <div className="text-center mb-8">
+              <div className="inline-flex items-center justify-center w-16 h-16 bg-purple-100 rounded-full mb-4">
+                <AlertCircle className="h-8 w-8 text-purple-600" />
+              </div>
+              <h2 className="text-2xl font-bold text-gray-900 mb-2">No Classes Assigned Yet</h2>
+              <p className="text-gray-600 max-w-2xl mx-auto">
+                You don't have any classes assigned to you yet. Once the admin assigns classes to you, you'll be able to:
+              </p>
+            </div>
+
+            {/* Features Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+              <div className="bg-gradient-to-br from-purple-50 to-purple-100 rounded-xl p-6">
+                <div className="w-12 h-12 bg-purple-600 text-white rounded-full flex items-center justify-center mb-4">
+                  <ClipboardList className="h-6 w-6" />
+                </div>
+                <h3 className="font-bold text-gray-900 mb-2">Create Assignments</h3>
+                <p className="text-sm text-gray-600">Design and distribute assignments to your students with deadlines and grading rubrics</p>
+              </div>
+
+              <div className="bg-gradient-to-br from-teal-50 to-teal-100 rounded-xl p-6">
+                <div className="w-12 h-12 bg-teal-600 text-white rounded-full flex items-center justify-center mb-4">
+                  <UserCheck className="h-6 w-6" />
+                </div>
+                <h3 className="font-bold text-gray-900 mb-2">Mark Attendance</h3>
+                <p className="text-sm text-gray-600">Track student attendance for every class session and monitor participation</p>
+              </div>
+
+              <div className="bg-gradient-to-br from-green-50 to-green-100 rounded-xl p-6">
+                <div className="w-12 h-12 bg-green-600 text-white rounded-full flex items-center justify-center mb-4">
+                  <Award className="h-6 w-6" />
+                </div>
+                <h3 className="font-bold text-gray-900 mb-2">Grade Submissions</h3>
+                <p className="text-sm text-gray-600">Review and grade student submissions, provide feedback and manage marksheets</p>
+              </div>
+
+              <div className="bg-gradient-to-br from-orange-50 to-orange-100 rounded-xl p-6">
+                <div className="w-12 h-12 bg-orange-600 text-white rounded-full flex items-center justify-center mb-4">
+                  <BarChart3 className="h-6 w-6" />
+                </div>
+                <h3 className="font-bold text-gray-900 mb-2">View Analytics</h3>
+                <p className="text-sm text-gray-600">Monitor class performance, track trends and identify students who need support</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Help Card */}
+          <div className="bg-gradient-to-r from-blue-50 to-purple-50 border border-blue-200 rounded-xl p-6">
+            <div className="flex items-start gap-4">
+              <div className="p-3 bg-blue-100 rounded-lg">
+                <Bell className="h-6 w-6 text-blue-600" />
+              </div>
+              <div>
+                <h3 className="font-semibold text-gray-900 mb-2">Waiting for Class Assignment</h3>
+                <p className="text-sm text-gray-600 mb-3">
+                  Please contact your department head or admin to get classes assigned to you. Once assigned, all teaching tools will be available here.
+                </p>
+                <Link 
+                  to="/teacher/timetable"
+                  className="text-sm font-medium text-purple-600 hover:text-purple-700 flex items-center gap-1"
+                >
+                  View Timetable
+                  <ChevronRight className="h-4 w-4" />
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-teal-50 p-3 sm:p-4 md:p-6 lg:p-8">
       <ToastContainer toasts={toasts} removeToast={removeToast} />

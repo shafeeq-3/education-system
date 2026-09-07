@@ -90,6 +90,12 @@ const userSchema = new mongoose.Schema({
     ref: 'Department'
   },
   
+  // Student-specific: Enrolled Program
+  program: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Program'
+  },
+  
   // Session Management
   lastActivity: {
     type: Date,
