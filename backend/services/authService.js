@@ -35,7 +35,8 @@ class AuthService {
       institute: userData.instituteId,
       profile: userData.profile,
       department: userData.departmentId,
-      isApproved: false // Requires admin approval
+      isApproved: true, // Auto-approve - No admin approval required
+      isActive: true // Activate immediately
     });
     
     // Remove password from response
@@ -78,10 +79,10 @@ class AuthService {
       throw new AuthenticationError('Invalid credentials', 'AUTH_INVALID_CREDENTIALS');
     }
     
-    // Check if user is approved
-    if (!user.isApproved) {
-      throw new AuthenticationError('Account pending approval', 'AUTH_ACCOUNT_NOT_APPROVED');
-    }
+    // Check if user is approved (DISABLED - auto-approve all users)
+    // if (!user.isApproved) {
+    //   throw new AuthenticationError('Account pending approval', 'AUTH_ACCOUNT_NOT_APPROVED');
+    // }
     
     // Check if user is blocked
     if (user.isBlocked) {
